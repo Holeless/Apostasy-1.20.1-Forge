@@ -10,6 +10,17 @@ A Minecraft **1.20.1 Forge** mod that adds **Vril Ore** and **Deepslate Vril Ore
 - Generates in the Overworld between Y=-64 and Y=48
 - Forge tags: `forge:ores/vril`, `forge:gems/vril`
 
+## Character selection
+The first time a player joins a world or server with the mod, an Origins-style screen asks them to pick a character. The choice is saved per world and cannot be dismissed with ESC. Ops can re-open it with `/vril character`.
+
+**Character 1**
+- Faster movement (+30%) and +2 attack damage
+- Incredibly slow swim speed (-85%)
+- Short breath: air drains 3x faster underwater (about 5 seconds)
+- One block taller (2.8 blocks) with a step height of 1.1, so full blocks can be walked up
+
+Characters are defined in `character/Characters.java`; adding a new one is a new entry plus lang keys and a portrait in `textures/gui/`.
+
 ## Building
 Requires JDK 17.
 

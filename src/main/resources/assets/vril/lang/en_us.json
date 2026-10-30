@@ -1,5 +1,20 @@
 {
   "item.vril.vril": "Vril",
   "block.vril.vril_ore": "Vril Ore",
-  "block.vril.deepslate_vril_ore": "Deepslate Vril Ore"
+  "block.vril.deepslate_vril_ore": "Deepslate Vril Ore",
+
+  "screen.vril.select_character": "Choose Your Character",
+  "screen.vril.choose": "Choose",
+  "message.vril.character_chosen": "You are now %s.",
+
+  "character.vril.character_1": "Character 1",
+
+  "trait.vril.swift_strong.name": "Swift & Strong",
+  "trait.vril.swift_strong.desc": "You move faster and hit harder than normal.",
+  "trait.vril.poor_swimmer.name": "Poor Swimmer",
+  "trait.vril.poor_swimmer.desc": "Your swim speed is incredibly slow.",
+  "trait.vril.short_breath.name": "Short Breath",
+  "trait.vril.short_breath.desc": "Your air runs out far faster than normal when your head is underwater.",
+  "trait.vril.towering.name": "Towering",
+  "trait.vril.towering.desc": "You stand one block taller, which also lets you step up higher."
 }
