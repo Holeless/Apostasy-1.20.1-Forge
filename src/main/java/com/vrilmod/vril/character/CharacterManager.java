@@ -37,6 +37,11 @@ public class CharacterManager {
 
     /** Returns the character a player currently has, based on synced attribute modifiers. */
     public static CharacterType get(Player player) {
+        // The size event can fire while the entity is still being constructed,
+        // before its attribute map exists.
+        if (player == null || player.getAttributes() == null) {
+            return null;
+        }
         for (CharacterType c : Characters.ALL) {
             CharacterType.ModifierSpec first = c.modifiers().get(0);
             AttributeInstance inst = player.getAttribute(first.attribute().get());
