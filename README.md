@@ -21,7 +21,7 @@ The first time a player joins a world or server with the mod, an Origins-style s
 - Reach is +0.35 (entities) / +0.45 (blocks), only enough to offset the higher eye line
 - Uses its own model (converted from `Char1.bbmodel`, `client/Char1Model.java`), drawn slightly narrow and with a faint slouch so it reads a little lanky
 - Butt cheeks bounce as he walks or runs (alternating with each stride)
-- The tail is a per-player spring chain: it swings with strides, lags behind turns and jumps, and keeps swinging after you stop
+- The tail is a rigid joint chain with per-player angular springs: it bends as one piece, swings with strides, lags behind turns and jumps, and keeps swinging after you stop
 
 Characters are defined in `character/Characters.java`; adding a new one is a new entry plus lang keys and a portrait in `textures/gui/`.
 
