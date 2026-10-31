@@ -23,7 +23,11 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
+
+            // Lets mixin mods (like Embeddium) find their targets in the dev environment
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -44,10 +48,14 @@ minecraft {
 }
 
 repositories {
+    maven {
+        url "https://maven.blamejared.com"
+    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    runtimeOnly fg.deobf("org.embeddedt:embeddium-1.20.1:0.2.11-git.23aedfb+mc1.20.1")
 }
 
 tasks.named('processResources', ProcessResources).configure {

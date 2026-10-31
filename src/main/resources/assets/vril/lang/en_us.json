@@ -5,9 +5,12 @@
 
   "screen.vril.select_character": "Choose Your Character",
   "screen.vril.choose": "Choose",
+  "screen.vril.back": "Back",
+  "screen.vril.forward": "Forward",
   "message.vril.character_chosen": "You are now %s.",
 
   "character.vril.character_1": "Character 1",
+  "character.vril.character_1.bio": "A towering figure with a gaze that never blinks. Quick on his feet and heavy with his fists, he fears nothing on land, but the water is another story. (Placeholder bio - replace with your own text in en_us.json.)",
 
   "trait.vril.swift_strong.name": "Swift & Strong",
   "trait.vril.swift_strong.desc": "You move faster and hit harder than normal.",
