@@ -20,6 +20,7 @@ The first time a player joins a world or server with the mod, an Origins-style s
 - One block taller (2.8 blocks) with a step height of 1.1, so full blocks can be walked up
 - Reach is +0.35 (entities) / +0.45 (blocks), only enough to offset the higher eye line
 - Uses its own model (converted from `Char1.bbmodel`, `client/Char1Model.java`), drawn slightly narrow and with a faint slouch so it reads a little lanky
+- Butt cheeks bounce as he walks or runs (alternating with each stride)
 
 Characters are defined in `character/Characters.java`; adding a new one is a new entry plus lang keys and a portrait in `textures/gui/`.
 

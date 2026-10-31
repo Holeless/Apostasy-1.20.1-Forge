@@ -32,8 +32,24 @@ public class Char1Model extends HumanoidModel<AbstractClientPlayer> {
     private static final float RIGHT_SHOULDER_DROOP = 0.04F;
     private static final float LEFT_SHOULDER_DROOP = -0.07F;
 
+    // Butt bounce while moving. Cheeks only ever lift from their rest pose (never sink
+    // into the legs) and the legs' swing is trimmed slightly so they don't clip them.
+    private static final float BOUNCE_LIFT = 1.1F;     // px, at full stride
+    private static final float BOUNCE_SPREAD = 0.35F;  // px outward, so cheeks don't merge
+    private static final float BOUNCE_TILT = 0.18F;    // rad
+    private static final float LEG_SWING_TRIM = 0.88F;
+
+    private final ModelPart buttRight;
+    private final ModelPart buttLeft;
+    private final float restRX, restRY, restRZ, restLX, restLY, restLZ, restRRot, restLRot;
+
     public Char1Model(ModelPart root) {
         super(root);
+        ModelPart b = root.getChild("body");
+        buttRight = b.getChild("butt_right");
+        buttLeft = b.getChild("butt_left");
+        restRX = buttRight.x; restRY = buttRight.y; restRZ = buttRight.z; restRRot = buttRight.xRot;
+        restLX = buttLeft.x;  restLY = buttLeft.y;  restLZ = buttLeft.z;  restLRot = buttLeft.xRot;
         ModelPart tip = root.getChild("body").getChild("tail_tip");
         tip.xScale = 0.9F;   // baked from the "ButtFix" animation in the bbmodel
         tip.zScale = 0.9F;
@@ -125,8 +141,29 @@ public class Char1Model extends HumanoidModel<AbstractClientPlayer> {
         rightLeg.y += REST_SHIFT;
         leftLeg.y += REST_SHIFT;
 
+        rightLeg.xRot *= LEG_SWING_TRIM;
+        leftLeg.xRot *= LEG_SWING_TRIM;
+        bounceButt(limbSwing, limbSwingAmount);
+
         head.xRot += HEAD_DROOP;
         rightArm.zRot += RIGHT_SHOULDER_DROOP;
         leftArm.zRot += LEFT_SHOULDER_DROOP;
+    }
+
+    /** Each cheek follows its own leg (same phase/frequency as the vanilla walk cycle). */
+    private void bounceButt(float limbSwing, float amount) {
+        float a = Math.min(amount, 1.0F);
+        float phase = limbSwing * 0.6662F;
+        // right leg swings with cos(phase), left with cos(phase + PI)
+        float r = 0.5F + 0.5F * (float) Math.cos(phase * 2.0F);          // 0..1, once per step
+        float l = 0.5F + 0.5F * (float) Math.cos(phase * 2.0F + Math.PI);  // alternate step
+        buttRight.x = restRX - BOUNCE_SPREAD * a;   // right is -x
+        buttLeft.x = restLX + BOUNCE_SPREAD * a;
+        buttRight.y = restRY - BOUNCE_LIFT * r * a;  // -y is up: lift only
+        buttLeft.y = restLY - BOUNCE_LIFT * l * a;
+        buttRight.z = restRZ + 0.4F * r * a;
+        buttLeft.z = restLZ + 0.4F * l * a;
+        buttRight.xRot = restRRot - BOUNCE_TILT * r * a;
+        buttLeft.xRot = restLRot - BOUNCE_TILT * l * a;
     }
 }
