@@ -6,18 +6,23 @@
   "screen.vril.select_character": "Choose Your Character",
   "screen.vril.choose": "Choose",
   "screen.vril.back": "Back",
-  "screen.vril.forward": "Forward",
+  "screen.vril.forward": "Next",
   "message.vril.character_chosen": "You are now %s.",
 
   "character.vril.character_1": "Character 1",
-  "character.vril.character_1.bio": "A towering figure with a gaze that never blinks. Quick on his feet and heavy with his fists, he fears nothing on land, but the water is another story. (Placeholder bio - replace with your own text in en_us.json.)",
+  "character.vril.character_1.bio": "Placeholder bio text. Placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder. Placeholder placeholder placeholder placeholder placeholder placeholder.",
 
-  "trait.vril.swift_strong.name": "Swift & Strong",
+  "trait.vril.swift_strong.name": "Placeholder Ability 1",
   "trait.vril.swift_strong.desc": "You move faster and hit harder than normal.",
-  "trait.vril.poor_swimmer.name": "Poor Swimmer",
+  "trait.vril.poor_swimmer.name": "Placeholder Ability 3",
   "trait.vril.poor_swimmer.desc": "Your swim speed is incredibly slow.",
-  "trait.vril.short_breath.name": "Short Breath",
+  "trait.vril.short_breath.name": "Placeholder Ability 4",
   "trait.vril.short_breath.desc": "Your air runs out far faster than normal when your head is underwater.",
-  "trait.vril.towering.name": "Towering",
-  "trait.vril.towering.desc": "You stand one block taller, which lets you step up higher. Your reach is slightly longer to make up for the height."
+  "trait.vril.towering.name": "Placeholder Ability 2",
+  "trait.vril.towering.desc": "You stand one block taller, which lets you step up higher. Your reach is slightly longer to make up for the height.",
+  "trait.vril.random_chirp.name": "Placeholder Ability 5",
+  "trait.vril.random_chirp.desc": "Random placeholder chirp",
+
+  "subtitles.vril.random_chirp": "Placeholder chirp",
+  "subtitles.vril.char1_pick": "Character chosen"
 }

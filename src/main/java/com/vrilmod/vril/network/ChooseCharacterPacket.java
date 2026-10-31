@@ -5,6 +5,7 @@ import com.vrilmod.vril.character.CharacterType;
 import com.vrilmod.vril.character.Characters;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -41,6 +42,10 @@ public class ChooseCharacterPacket {
                 return;
             }
             CharacterManager.choose(player, chosen);
+            if (chosen.selectSound() != null) {
+                // Sent to the player who picked, so only they hear it.
+                player.playNotifySound(chosen.selectSound().get(), SoundSource.MASTER, 1.0F, 1.0F);
+            }
         });
         ctx.get().setPacketHandled(true);
     }

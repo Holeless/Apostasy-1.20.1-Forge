@@ -1,6 +1,7 @@
 package com.vrilmod.vril.character;
 
 import com.vrilmod.vril.VrilMod;
+import com.vrilmod.vril.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,7 +19,8 @@ public class Characters {
                     new CharacterType.Trait("swift_strong", CharacterType.TraitKind.POSITIVE),
                     new CharacterType.Trait("poor_swimmer", CharacterType.TraitKind.NEGATIVE),
                     new CharacterType.Trait("short_breath", CharacterType.TraitKind.NEGATIVE),
-                    new CharacterType.Trait("towering", CharacterType.TraitKind.POSITIVE)),
+                    new CharacterType.Trait("towering", CharacterType.TraitKind.POSITIVE),
+                    new CharacterType.Trait("random_chirp", CharacterType.TraitKind.NEGATIVE)),
             List.of(
                     // The first modifier is also how a character is detected on a player,
                     // and attribute modifiers are synced to every client for free.
@@ -38,7 +40,10 @@ public class Characters {
                             0.45, AttributeModifier.Operation.ADDITION)),
             1.0F,   // one block taller
             1.1F,   // step height: lets you walk up full blocks (vanilla is 0.6)
-            2);     // extra air lost per tick underwater (3x total drain, about 5s of air)
+            2,      // extra air lost per tick underwater (3x total drain, about 5s of air)
+            45 * 20,  // chirp: earliest gap between chirps, in ticks (45 seconds)
+            60 * 20,  // chirp: latest gap between chirps, in ticks (60 seconds)
+            ModSounds.CHAR1_PICK::get); // plays to the player when they confirm this character
 
     public static final List<CharacterType> ALL = List.of(CHARACTER_1);
 

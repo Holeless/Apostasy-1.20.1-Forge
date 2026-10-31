@@ -3,6 +3,7 @@ package com.vrilmod.vril;
 import com.vrilmod.vril.block.ModBlocks;
 import com.vrilmod.vril.item.ModItems;
 import com.vrilmod.vril.network.ModNetwork;
+import com.vrilmod.vril.sound.ModSounds;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,6 +20,7 @@ public class VrilMod {
 
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
+        ModSounds.SOUNDS.register(modBus);
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::addCreative);

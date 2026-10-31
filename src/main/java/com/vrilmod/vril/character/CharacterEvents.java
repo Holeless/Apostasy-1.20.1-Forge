@@ -3,9 +3,11 @@ package com.vrilmod.vril.character;
 import com.mojang.brigadier.CommandDispatcher;
 import com.vrilmod.vril.VrilMod;
 import com.vrilmod.vril.network.ModNetwork;
+import com.vrilmod.vril.sound.ModSounds;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.EntityDimensions;
@@ -18,8 +20,15 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = VrilMod.MOD_ID)
 public class CharacterEvents {
+
+    /** Game time at which each player's next random chirp is due (server thread only). */
+    private static final Map<UUID, Long> NEXT_CHIRP = new HashMap<>();
 
     // ---- selection / persistence ----
 
@@ -34,6 +43,11 @@ public class CharacterEvents {
         } else {
             CharacterManager.apply(player, saved);
         }
+    }
+
+    @SubscribeEvent
+    public static void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        NEXT_CHIRP.remove(event.getEntity().getUUID());
     }
 
     @SubscribeEvent
@@ -88,6 +102,9 @@ public class CharacterEvents {
         if (c == null) {
             // Character was removed (or never had one): undo anything we changed.
             CharacterManager.resetStepHeight(player);
+            if (!player.level().isClientSide) {
+                NEXT_CHIRP.remove(player.getUUID());
+            }
             return;
         }
 
@@ -113,6 +130,32 @@ public class CharacterEvents {
                 player.setAirSupply(air - c.extraAirDrain());
             }
         }
+
+        // Random chirp: a sound that plays on its own every 45-60 seconds (server only).
+        if (!player.level().isClientSide && c.chirpMaxTicks() > 0) {
+            tickChirp(player, c);
+        }
+    }
+
+    private static void tickChirp(Player player, CharacterType c) {
+        long now = player.level().getGameTime();
+        Long next = NEXT_CHIRP.get(player.getUUID());
+        if (next == null) {
+            NEXT_CHIRP.put(player.getUUID(), now + chirpDelay(player, c));
+            return;
+        }
+        if (now >= next) {
+            // Played from the player's position so anyone nearby hears it too.
+            player.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(),
+                    ModSounds.RANDOM_CHIRP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            NEXT_CHIRP.put(player.getUUID(), now + chirpDelay(player, c));
+        }
+    }
+
+    private static int chirpDelay(Player player, CharacterType c) {
+        int min = c.chirpMinTicks();
+        int max = Math.max(min, c.chirpMaxTicks());
+        return min + player.getRandom().nextInt(max - min + 1);
     }
 
     // ---- /vril character (op) re-opens the selection screen ----

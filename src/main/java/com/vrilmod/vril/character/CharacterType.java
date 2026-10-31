@@ -3,6 +3,7 @@ package com.vrilmod.vril.character;
 import com.vrilmod.vril.VrilMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
@@ -13,7 +14,7 @@ import java.util.function.Supplier;
 
 /**
  * A selectable character. Attribute modifiers, hitbox height, step height and
- * air drain are all data on this record, so adding another character is just
+ * air drain and the random chirp timing (chirpMaxTicks = 0 means no chirp), plus an optional sound that plays when the character is picked (selectSound, may be null) are all data on this record, so adding another character is just
  * a new entry in {@link Characters}.
  */
 public record CharacterType(
@@ -24,7 +25,10 @@ public record CharacterType(
         List<ModifierSpec> modifiers,
         float extraHeight,
         float stepHeight,
-        int extraAirDrain) {
+        int extraAirDrain,
+        int chirpMinTicks,
+        int chirpMaxTicks,
+        Supplier<SoundEvent> selectSound) {
 
     public static final float DEFAULT_STEP_HEIGHT = 0.6F;
 
