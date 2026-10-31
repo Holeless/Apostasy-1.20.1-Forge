@@ -27,7 +27,15 @@ public class Characters {
                     new CharacterType.ModifierSpec(() -> Attributes.ATTACK_DAMAGE, "attack_damage",
                             2.0, AttributeModifier.Operation.ADDITION),
                     new CharacterType.ModifierSpec(ForgeMod.SWIM_SPEED::get, "swim_speed",
-                            -0.85, AttributeModifier.Operation.MULTIPLY_TOTAL)),
+                            -0.85, AttributeModifier.Operation.MULTIPLY_TOTAL),
+                    // Reach compensation for the +1 block of eye height. A taller eye is
+                    // farther along the line of sight to the same target, so we add only
+                    // what that costs at max range: a mob's torso at 3.0 blocks (+0.35)
+                    // and a floor block at 4.5 blocks (+0.45).
+                    new CharacterType.ModifierSpec(ForgeMod.ENTITY_REACH::get, "entity_reach",
+                            0.35, AttributeModifier.Operation.ADDITION),
+                    new CharacterType.ModifierSpec(ForgeMod.BLOCK_REACH::get, "block_reach",
+                            0.45, AttributeModifier.Operation.ADDITION)),
             1.0F,   // one block taller
             1.1F,   // step height: lets you walk up full blocks (vanilla is 0.6)
             2);     // extra air lost per tick underwater (3x total drain, about 5s of air)

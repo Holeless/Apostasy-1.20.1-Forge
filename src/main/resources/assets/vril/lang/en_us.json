@@ -16,5 +16,5 @@
   "trait.vril.short_breath.name": "Short Breath",
   "trait.vril.short_breath.desc": "Your air runs out far faster than normal when your head is underwater.",
   "trait.vril.towering.name": "Towering",
-  "trait.vril.towering.desc": "You stand one block taller, which also lets you step up higher."
+  "trait.vril.towering.desc": "You stand one block taller, which lets you step up higher. Your reach is slightly longer to make up for the height."
 }
